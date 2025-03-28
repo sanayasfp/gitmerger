@@ -1,5 +1,9 @@
+"use client"
+
+import { useState } from "react"
 import { ModeToggle } from "@/components/mode-toggle"
 import { MiniProfile } from "@/components/profile/mini-profile"
+import { ProfileForm } from "@/components/profile/profile-form"
 import { CombinedProfile } from "@/types/profile"
 
 // Mock data for testing
@@ -39,6 +43,8 @@ const mockProfile: CombinedProfile = {
 }
 
 export default function Home() {
+  const [profile, setProfile] = useState<CombinedProfile | null>(null)
+
   return (
     <main className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
@@ -51,13 +57,24 @@ export default function Home() {
           {/* Profile Section */}
           <section className="bg-card rounded-lg p-6 shadow-lg">
             <h2 className="text-2xl font-semibold mb-4">Profile</h2>
-            <MiniProfile profile={mockProfile} />
+            {profile ? (
+              <MiniProfile profile={profile} />
+            ) : (
+              <ProfileForm onProfileFetch={setProfile} />
+            )}
           </section>
 
           {/* Stats Section */}
           <section className="bg-card rounded-lg p-6 shadow-lg">
             <h2 className="text-2xl font-semibold mb-4">Statistics</h2>
-            {/* Stats content will go here */}
+            {profile ? (
+              <div>
+                {/* Stats content will go here */}
+                <p className="text-muted-foreground">Coming soon...</p>
+              </div>
+            ) : (
+              <p className="text-muted-foreground">Enter your usernames to view statistics</p>
+            )}
           </section>
         </div>
       </div>
