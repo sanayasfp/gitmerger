@@ -1,4 +1,42 @@
 import { ModeToggle } from "@/components/mode-toggle"
+import { MiniProfile } from "@/components/profile/mini-profile"
+import { CombinedProfile } from "@/types/profile"
+
+// Mock data for testing
+const mockProfile: CombinedProfile = {
+  displayName: "John Doe",
+  primaryPlatform: "github",
+  github: {
+    name: "John Doe",
+    login: "johndoe",
+    avatarUrl: "https://avatars.githubusercontent.com/u/1234567",
+    bio: "Software Developer | Open Source Enthusiast",
+    location: "San Francisco, CA",
+    company: "Tech Corp",
+    websiteUrl: "https://johndoe.dev",
+    twitterUsername: "johndoe",
+    followers: 1234,
+    following: 567,
+    repositories: 89,
+    contributions: 1234,
+    platform: "github"
+  },
+  gitlab: {
+    name: "John Doe",
+    login: "johndoe",
+    avatarUrl: "https://gitlab.com/uploads/-/system/user/avatar/1234567/avatar.png",
+    bio: "Software Developer | Open Source Enthusiast",
+    location: "San Francisco, CA",
+    company: "Tech Corp",
+    websiteUrl: "https://johndoe.dev",
+    twitterUsername: "johndoe",
+    followers: 890,
+    following: 123,
+    repositories: 45,
+    contributions: 567,
+    platform: "gitlab"
+  }
+}
 
 export default function Home() {
   return (
@@ -13,7 +51,7 @@ export default function Home() {
           {/* Profile Section */}
           <section className="bg-card rounded-lg p-6 shadow-lg">
             <h2 className="text-2xl font-semibold mb-4">Profile</h2>
-            {/* Profile content will go here */}
+            <MiniProfile profile={mockProfile} />
           </section>
 
           {/* Stats Section */}
