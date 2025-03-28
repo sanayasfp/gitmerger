@@ -4,7 +4,9 @@ import { useState } from "react"
 import { ModeToggle } from "@/components/mode-toggle"
 import { MiniProfile } from "@/components/profile/mini-profile"
 import { ProfileForm } from "@/components/profile/profile-form"
+import { StatsContainer } from "@/components/stats/stats-container"
 import { CombinedProfile } from "@/types/profile"
+import { CombinedStats } from "@/types/stats"
 
 // Mock data for testing
 const mockProfile: CombinedProfile = {
@@ -42,8 +44,57 @@ const mockProfile: CombinedProfile = {
   }
 }
 
+// Mock stats data
+const mockStats: CombinedStats = {
+  contributionGraph: {
+    weeks: Array.from({ length: 53 }, (_, weekIndex) => ({
+      days: Array.from({ length: 7 }, (_, dayIndex) => ({
+        date: new Date(Date.now() - (52 - weekIndex) * 7 * 24 * 60 * 60 * 1000 - dayIndex * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        count: Math.floor(Math.random() * 10),
+        platform: Math.random() > 0.5 ? 'github' : 'gitlab' as const
+      }))
+    })),
+    totalContributions: 1801
+  },
+  activityOverview: {
+    github: {
+      totalCommits: 856,
+      totalPullRequests: 123,
+      totalIssues: 45,
+      totalStars: 234,
+      platform: 'github'
+    },
+    gitlab: {
+      totalCommits: 567,
+      totalPullRequests: 89,
+      totalIssues: 34,
+      totalStars: 156,
+      platform: 'gitlab'
+    }
+  },
+  repositoryStats: {
+    github: {
+      totalRepositories: 89,
+      publicRepositories: 45,
+      privateRepositories: 44,
+      totalStars: 234,
+      totalForks: 123,
+      platform: 'github'
+    },
+    gitlab: {
+      totalRepositories: 45,
+      publicRepositories: 23,
+      privateRepositories: 22,
+      totalStars: 156,
+      totalForks: 78,
+      platform: 'gitlab'
+    }
+  }
+}
+
 export default function Home() {
   const [profile, setProfile] = useState<CombinedProfile | null>(null)
+  const [stats, setStats] = useState<CombinedStats | null>(null)
 
   return (
     <main className="min-h-screen bg-background">
@@ -67,11 +118,8 @@ export default function Home() {
           {/* Stats Section */}
           <section className="bg-card rounded-lg p-6 shadow-lg">
             <h2 className="text-2xl font-semibold mb-4">Statistics</h2>
-            {profile ? (
-              <div>
-                {/* Stats content will go here */}
-                <p className="text-muted-foreground">Coming soon...</p>
-              </div>
+            {stats ? (
+              <StatsContainer stats={stats} />
             ) : (
               <p className="text-muted-foreground">Enter your usernames to view statistics</p>
             )}
