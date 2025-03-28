@@ -1,22 +1,13 @@
 const GITLAB_API_URL = 'https://gitlab.com/api/v4'
 
 export async function fetchGitLabProfile(username: string): Promise<any> {
-  const response = await fetch(`${GITLAB_API_URL}/users?username=${username}`, {
-    headers: {
-      'Accept': 'application/json',
-    },
-  })
-
+  const response = await fetch(`/api/gitlab/${username}`)
+  
   if (!response.ok) {
     throw new Error(`GitLab API error: ${response.statusText}`)
   }
 
-  const users = await response.json()
-  if (!users.length) {
-    throw new Error('User not found')
-  }
-
-  return users[0]
+  return response.json()
 }
 
 export async function fetchGitLabContributions(username: string): Promise<number> {

@@ -3,6 +3,7 @@
 import { CombinedStats } from "@/types/stats"
 import { ContributionGraph } from "./contribution-graph"
 import { ActivityOverview } from "./activity-overview"
+import { RepositoryStats } from "./repository-stats"
 
 interface StatsContainerProps {
   stats: CombinedStats
@@ -13,7 +14,7 @@ export function StatsContainer({ stats }: StatsContainerProps) {
     <div className="space-y-8">
       <ContributionGraph data={stats.contributionGraph} />
       <ActivityOverview data={stats.activityOverview} />
-      {/* Repository stats will be added here */}
+      <RepositoryStats data={stats.repositoryStats} />
     </div>
   )
 } 

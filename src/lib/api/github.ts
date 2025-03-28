@@ -1,12 +1,8 @@
 const GITHUB_API_URL = 'https://api.github.com'
 
 export async function fetchGitHubProfile(username: string): Promise<any> {
-  const response = await fetch(`${GITHUB_API_URL}/users/${username}`, {
-    headers: {
-      'Accept': 'application/vnd.github.v3+json',
-    },
-  })
-
+  const response = await fetch(`/api/github/${username}`)
+  
   if (!response.ok) {
     throw new Error(`GitHub API error: ${response.statusText}`)
   }
