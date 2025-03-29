@@ -4,6 +4,7 @@ import { useState } from "react"
 import { ModeToggle } from "@/components/mode-toggle"
 import { MiniProfile } from "@/components/profile/mini-profile"
 import { ProfileForm } from "@/components/profile/profile-form"
+import { ProfileContent } from "@/components/profile/profile-content"
 import { StatsContainer } from "@/components/stats/stats-container"
 import { CombinedProfile } from "@/types/profile"
 import { CombinedStats } from "@/types/stats"
@@ -104,25 +105,35 @@ export default function Home() {
           <ModeToggle />
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Profile Section */}
-          <section className="bg-card rounded-lg p-6 shadow-lg">
-            <h2 className="text-2xl font-semibold mb-4">Profile</h2>
-            {profile ? (
-              <MiniProfile profile={profile} />
-            ) : (
-              <ProfileForm onProfileFetch={setProfile} />
+          <section className="lg:col-span-1 space-y-8">
+            <div className="bg-card rounded-lg p-6 shadow-lg">
+              <h2 className="text-2xl font-semibold mb-4">Profile</h2>
+              {profile ? (
+                <MiniProfile profile={profile} />
+              ) : (
+                <ProfileForm onProfileFetch={setProfile} />
+              )}
+            </div>
+
+            {profile && (
+              <div className="bg-card rounded-lg p-6 shadow-lg">
+                <ProfileContent profile={profile} />
+              </div>
             )}
           </section>
 
           {/* Stats Section */}
-          <section className="bg-card rounded-lg p-6 shadow-lg">
-            <h2 className="text-2xl font-semibold mb-4">Statistics</h2>
-            {stats ? (
-              <StatsContainer stats={stats} />
-            ) : (
-              <p className="text-muted-foreground">Enter your usernames to view statistics</p>
-            )}
+          <section className="lg:col-span-2">
+            <div className="bg-card rounded-lg p-6 shadow-lg">
+              <h2 className="text-2xl font-semibold mb-4">Statistics</h2>
+              {stats ? (
+                <StatsContainer stats={stats} />
+              ) : (
+                <p className="text-muted-foreground">Enter your usernames to view statistics</p>
+              )}
+            </div>
           </section>
         </div>
       </div>
